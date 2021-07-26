@@ -1,5 +1,4 @@
-const orgUnitModel = require('../models/organisationalUnitModel');
-const softwareReviewModel = orgUnitModel.softwareReviewModel
+const {softwareReviewModel} = require('../models/organisationalUnitModel');
 
 
 /**
@@ -15,7 +14,7 @@ const softwareReviewModel = orgUnitModel.softwareReviewModel
      * @access public
      */
      list: function (req, res) {
-        softwareReviewModel.find('divisionName', function (err, divs) {
+        softwareReviewModel.find({}, 'divisionName', function (err, divs) {
             if (err) {
                 return res.status(500).json({
                     msg: 'Error getting software review divisions',

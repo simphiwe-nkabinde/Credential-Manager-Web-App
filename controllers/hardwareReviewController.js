@@ -1,5 +1,4 @@
-const orgUnitModel = require('../models/organisationalUnitModel');
-const hardwareReviewModel = orgUnitModel.hardwareReviewModel
+const {hardwareReviewModel} = require('../models/organisationalUnitModel');
 
 
 /**
@@ -15,7 +14,7 @@ const hardwareReviewModel = orgUnitModel.hardwareReviewModel
      * @access public
      */
      list: function (req, res) {
-        hardwareReviewModel.find( 'divisionName', function (err, divs) {
+        hardwareReviewModel.find({}, 'divisionName', function (err, divs) {
             if (err) {
                 return res.status(500).json({
                     msg: 'Error getting hardware review divisions',

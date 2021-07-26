@@ -1,6 +1,4 @@
-const orgUnitModel = require('../models/organisationalUnitModel');
-const opinionPublishingModel = orgUnitModel.opinionPublishingModel
-
+const {opinionPublishingModel} = require('../models/organisationalUnitModel');
 
 /**
  * opinionPublishingControlller.js
@@ -15,7 +13,7 @@ const opinionPublishingModel = orgUnitModel.opinionPublishingModel
      * @access public
      */
      list: function (req, res) {
-        opinionPublishingModel.find( 'divisionName', function (err, divs) {
+        opinionPublishingModel.find({}, 'divisionName', function (err, divs) {
             if (err) {
                 return res.status(500).json({
                     msg: 'Error getting opinion publishing divisions',

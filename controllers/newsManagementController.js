@@ -1,5 +1,4 @@
-const orgUnitModel = require('../models/organisationalUnitModel');
-const newsManagementModel = orgUnitModel.newsManagementModel
+const {newsManagementModel} = require('../models/organisationalUnitModel');
 const uuid = require('uuid')
 
 
@@ -16,7 +15,7 @@ const uuid = require('uuid')
      * @access public
      */
      list: function (req, res) {
-        newsManagementModel.find( 'divisionName', function (err, divs) {
+        newsManagementModel.find({}, 'divisionName', function (err, divs) {
             if (err) {
                 return res.status(500).json({
                     msg: 'Error getting news management divisions',

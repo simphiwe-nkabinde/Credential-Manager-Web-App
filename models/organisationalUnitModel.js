@@ -10,9 +10,7 @@ const organisationalUnitSchema = new Schema({
     credentials : {}
 });
 
-module.exports = {
-    newsManagementModel: mongoose.model('newsManagement', organisationalUnitSchema, 'newsManagement'),
-    softwareReviewModel: mongoose.model('softwareReview', organisationalUnitSchema, 'softwareReviews'),
-    hardwareReviewModel: mongoose.model('hardwareReview', organisationalUnitSchema, 'hardwareReviews'),
-    opinionPublishingModel: mongoose.model('opinionPublishing', organisationalUnitSchema, 'opinionPublishing')
-}
+exports.newsManagementModel = mongoose.model('newsManagement', organisationalUnitSchema, 'newsManagement');
+exports.softwareReviewModel = mongoose.model('softwareReview', organisationalUnitSchema, 'softwareReviews');
+exports.hardwareReviewModel = mongoose.model('hardwareReview', organisationalUnitSchema, 'hardwareReviews');
+exports.opinionPublishingModel = mongoose.model('opinionPublishing', organisationalUnitSchema, 'opinionPublishing');
