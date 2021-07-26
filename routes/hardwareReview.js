@@ -4,24 +4,31 @@ const hardwareReviewController = require('../controllers/hardwareReviewControlle
 
 /**
  * @route /hardware-review
- * @desc list all divisions for the news management unit
+ * @desc list all division names for the news management unit
  * @access public
  */
 router.get('/', hardwareReviewController.list);
 
 /**
- * @route /hardware-review/:divisionName
+ * @route /hardware-review/divisionId
  * @desc list all credential data for specified divisionName
  * @access private admin & users with access to division
  */
- router.get('/:divisionName', hardwareReviewController.listCredentials);
+ router.get('/:divisionId', hardwareReviewController.listCredentials);
 
 /**
- * @route /hardware-review/:divisionName
+ * @route /hardware-review/divisionId
  * @desc update user role (admin, management, user)
  * @access private admin only
  */
-router.put('/:divisionName', hardwareReviewController.updateCredentials);
+router.put('/:divisionId', hardwareReviewController.updateCredentials);
+
+/**
+ * @route /software-review/:divisionId
+ * @desc create a new credential for specified divsion
+ * @access public
+ */
+ router.post('/:divisionId', hardwareReviewController.createCredential);
 
 
 

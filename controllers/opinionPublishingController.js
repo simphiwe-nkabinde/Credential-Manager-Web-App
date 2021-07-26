@@ -1,8 +1,7 @@
 const {opinionPublishingModel} = require('../models/organisationalUnitModel');
 
 /**
- * opinionPublishingControlller.js
- * 
+ * @controller opinionPublishingControlller.js
  * @desc :: Server-side logic for managing hardware Review divsions.
  */
  module.exports = {
@@ -51,7 +50,8 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
      * @access public
      */
     createCredential: function(req, res) {
-        const {divisionId, name , details, username, password} = req.body;
+        const divisionId = req.params.divisionId
+        const { name , details, username, password} = req.body;
         
         opinionPublishingModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {
@@ -74,14 +74,14 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
                 }
             )
 
-            division.save(function(err, user){
+            division.save(function(err, division){
                 if(err) {
                     return res.status(500).json({msg: 'Error getting division'})
                 }
-                if(!user) {
+                if(!division) {
                     return rest.staus(404).json({msg:'division not found'});
                 }
-                return res.json({msg: 'added ' + name + ' credentials to division' })
+                return res.json({msg: 'added ' + name + ' credentials to ' + division.divisionName + ' division' })
             })
 
         })
@@ -94,7 +94,8 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
      * @access private admin & management role
      */
     updateCredentials: function(req, res) {
-        const {divisionId, credentialId, name , details, username, password} = req.body;
+        const divisionId = req.params.divisionId
+        const {credentialId, name , details, username, password} = req.body;
         
         opinionPublishingModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {

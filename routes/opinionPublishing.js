@@ -4,24 +4,31 @@ const opinionPublishingController = require('../controllers/opinionPublishingCon
 
 /**
  * @route /opinion-publishing
- * @desc list all divisions for the news management unit
+ * @desc list all division names for the news management unit
  * @access public
  */
 router.get('/', opinionPublishingController.list);
 
 /**
- * @route /opinion-publishing/:divisionName
+ * @route /opinion-publishing/:divisionId
  * @desc list all credential data for specified divisionName
  * @access private admin & users with access to division
  */
- router.get('/:divisionName', opinionPublishingController.listCredentials);
+ router.get('/:divisionId', opinionPublishingController.listCredentials);
 
 /**
- * @route /opinion-publishing/:divisionName
+ * @route /opinion-publishing/:divisionId
  * @desc update user role (admin, management, user)
  * @access private admin only
  */
-router.put('/:divisionName', opinionPublishingController.updateCredentials);
+router.put('/:divisionId', opinionPublishingController.updateCredentials);
+
+/**
+ * @route /software-review/:divisionId
+ * @desc create a new credential for specified divsion
+ * @access public
+ */
+ router.post('/:divisionId', opinionPublishingController.createCredential);
 
 
 
