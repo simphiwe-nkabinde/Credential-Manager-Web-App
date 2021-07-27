@@ -9,7 +9,7 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
     /**
      * @controller opinionPublishingControlller.list()
      * @desc list all divisions
-     * @access public
+     * @req {}
      */
      list: function (req, res) {
         opinionPublishingModel.find({}, 'divisionName', function (err, divs) {
@@ -26,11 +26,11 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
     /**
      * @controller opinionPublishingControlller.listCredentials
      * @desc list all credentials for a division
-     * @access public
+     * @req params.{ divisionName }
      */
     listCredentials: function(req,res) {
-        const id = req.params.id
-        opinionPublishingModel.findOne({_id:id}, 'credentials', function(err, div) {
+        const division = req.params.divisionName
+        opinionPublishingModel.findOne({divisionName:division}, 'credentials', function(err, div) {
             if(err) {
                 return res.status(500).json({
                     msg: 'Error getting division',
@@ -47,11 +47,10 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
         /**
      * @controller opinionPublishingControlller.createCredential()
      * @desc create and add new credential to a specified division
-     * @access public
+     * @req body.{ divisionId, name , details, username, password}
      */
     createCredential: function(req, res) {
-        const divisionId = req.params.divisionId
-        const { name , details, username, password} = req.body;
+        const { divisionId, name , details, username, password} = req.body;
         
         opinionPublishingModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {
@@ -91,11 +90,10 @@ const {opinionPublishingModel} = require('../models/organisationalUnitModel');
     /**
      * @controller opinionPublishingControlller.updateCredential()
      * @desc update specific credentials of a specified division
-     * @access private admin & management role
+     * @req body.{divisionId, credentialId, name , details, username, password
      */
     updateCredentials: function(req, res) {
-        const divisionId = req.params.divisionId
-        const {credentialId, name , details, username, password} = req.body;
+        const {divisionId, credentialId, name , details, username, password} = req.body;
         
         opinionPublishingModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {

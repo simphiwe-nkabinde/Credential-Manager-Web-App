@@ -10,7 +10,7 @@ module.exports = {
     /**
      * @controller userController.list()
      * @desc list all users
-     * @access admin only
+     * @req admin only
      */
     list: function (req, res) {
         userModel.find(function (err, users) {
@@ -27,7 +27,7 @@ module.exports = {
     /**
      * @controller userController.updateRole()
      * @desc update users Role (admin, management or user)
-     * @access admin only
+     * @req admin only
      */
     updateRole: function (req, res) {
         const id = req.params.id;
@@ -48,7 +48,7 @@ module.exports = {
     /**
      * @controller userController.updateOU()
      * @desc update divisions in selected (OU)organisational unit 
-     * @access admin only
+     * @req admin only
      */
     updateOU: function(req, res) {
         const id = req.params.id;
@@ -83,7 +83,7 @@ module.exports = {
     /**
      * @controller userController.create()
      * @desc create new user
-     * @access public
+     * @req body.{ name, email, password }
      */
     create: function(req, res) {
         const {name, email, password} = req.body;

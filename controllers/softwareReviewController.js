@@ -11,7 +11,7 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller softwareReviewControlller.list()
      * @desc list all divisions
-     * @access public
+     * @req {}
      */
      list: function (req, res) {
         softwareReviewModel.find({}, 'divisionName', function (err, divs) {
@@ -28,11 +28,11 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller softwareReviewControlller.listCredentials
      * @desc list all credentials for a division
-     * @access public
+     * @req params.{ divisionName }
      */
     listCredentials: function(req,res) {
-        const id = req.params.divisionId
-        softwareReviewModel.findOne({_id:id}, function(err, division) {
+        const division = req.params.divisionName
+        softwareReviewModel.findOne({divisionName:division}, function(err, division) {
             if(err) {
                 return res.status(500).json({
                     msg: 'Error getting division',
@@ -49,11 +49,10 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller softwareReviewControlller.createCredential()
      * @desc create and add new credential to a specified division
-     * @access public
+     * @req body.{ divisionId, name , details, username, password }
      */
     createCredential: function(req, res) {
-        const divisionId = req.params.divisionId
-        const { name , details, username, password} = req.body;
+        const { divisionId, name , details, username, password} = req.body;
         
         softwareReviewModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {
@@ -93,11 +92,10 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller softwareReviewControlller.updateCredential()
      * @desc update specific credentials of a specified division
-     * @access private admin & management role
+     * @req body.{ divisionId, name , details, username, password }
      */
     updateCredentials: function(req, res) {
-        const divisionId = req.params.divisionId
-        const {credentialId, name , details, username, password} = req.body;
+        const {divisionId, credentialId, name , details, username, password} = req.body;
         
         softwareReviewModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {

@@ -1,27 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const auth = require('../middleware/authMiddleware')
 
 /**
  * @route /users
  * @desc list all users
  * @access admin only
  */
-router.get('/', userController.list);
+router.get('/', auth.admin, userController.list);
 
 /**
  * @route /users/:id/role
  * @desc update user role (admin, management, user)
- * @access admin only
+ * @access private admin only
  */
-router.put('/:role/:id/', userController.updateRole);
+router.put('/:role/:id/', auth.admin, userController.updateRole);
 
  /**
  * @route /users/:id/ou
  * @desc update divisions in selected (OU)Organisational Unit
- * @access admin only
+ * @access private admin only
  */
-router.put('/ou/:id', userController.updateOU);
+router.put('/ou/:id', auth.admin, userController.updateOU);
 
  /**
  * @route /users/register

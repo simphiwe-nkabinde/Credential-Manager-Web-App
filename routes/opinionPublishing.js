@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const opinionPublishingController = require('../controllers/opinionPublishingController')
+const auth = require('../middleware/authMiddleware')
 
 /**
  * @route /opinion-publishing
@@ -10,25 +11,25 @@ const opinionPublishingController = require('../controllers/opinionPublishingCon
 router.get('/', opinionPublishingController.list);
 
 /**
- * @route /opinion-publishing/:divisionId
+ * @route /opinion-publishing/:divisionName
  * @desc list all credential data for specified divisionName
  * @access private admin & users with access to division
  */
- router.get('/:divisionId', opinionPublishingController.listCredentials);
+ router.get('/:divisionName', auth.opinionPublishing, opinionPublishingController.listCredentials);
 
 /**
- * @route /opinion-publishing/:divisionId
+ * @route /opinion-publishing/:divisionName
  * @desc update user role (admin, management, user)
- * @access private admin only
+ * @access private admin & management
  */
-router.put('/:divisionId', opinionPublishingController.updateCredentials);
+router.put('/:divisionName', auth.adminManagement, opinionPublishingController.updateCredentials);
 
 /**
- * @route /software-review/:divisionId
+ * @route /software-review/:divisionName
  * @desc create a new credential for specified divsion
  * @access public
  */
- router.post('/:divisionId', opinionPublishingController.createCredential);
+ router.post('/:divisionName', auth.opinionPublishing, opinionPublishingController.createCredential);
 
 
 

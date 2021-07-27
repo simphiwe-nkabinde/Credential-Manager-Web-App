@@ -7,6 +7,7 @@ const newsManagementRouter = require('./routes/newsManagement');
 const softwareReviewRouter = require('./routes/softwareReview');
 const hardwareReviewRouter = require('./routes/hardwareReview');
 const opinionPublishingRouter = require('./routes/opinionPublishing');
+const loginRouter = require('./routes/login')
 
 const PORT = process.env.PORT || 3001;
 
@@ -46,6 +47,7 @@ app.use('/news-management', newsManagementRouter)
 app.use('/software-review', softwareReviewRouter)
 app.use('/hardware-review', hardwareReviewRouter)
 app.use('/opinion-publishing', opinionPublishingRouter)
+app.use('/login', loginRouter)
 
 
 

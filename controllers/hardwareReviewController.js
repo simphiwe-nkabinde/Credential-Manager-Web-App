@@ -10,7 +10,7 @@ const {hardwareReviewModel} = require('../models/organisationalUnitModel');
     /**
      * @controller hardwareReviewControlller.list()
      * @desc list all divisions
-     * @access public
+     * @req {}
      */
      list: function (req, res) {
         hardwareReviewModel.find({}, 'divisionName', function (err, divs) {
@@ -27,11 +27,11 @@ const {hardwareReviewModel} = require('../models/organisationalUnitModel');
     /**
      * @controller hardwareReviewControlller.listCredentials
      * @desc list all credentials for a division
-     * @access public
+     * @req params.{divisionName}
      */
     listCredentials: function(req,res) {
-        const id = req.params.id
-        hardwareReviewModel.findOne({_id:id}, 'credentials', function(err, div) {
+        const division = req.params.divisionName
+        hardwareReviewModel.findOne({divisionName:division}, 'credentials', function(err, div) {
             if(err) {
                 return res.status(500).json({
                     msg: 'Error getting division',
@@ -48,11 +48,10 @@ const {hardwareReviewModel} = require('../models/organisationalUnitModel');
     /**
      * @controller hardwareReviewController.createCredential()
      * @desc create and add new credential to a specified division
-     * @access public
+     * @req body.{ divisionId, name , details, username, password }
      */
     createCredential: function(req, res) {
-        const divisionId = req.params.divisionId
-        const { name , details, username, password} = req.body;
+        const { divisionId, name , details, username, password} = req.body;
         
         hardwareReviewModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {
@@ -92,11 +91,10 @@ const {hardwareReviewModel} = require('../models/organisationalUnitModel');
     /**
      * @controller hardwareReviewController.updateCredential()
      * @desc update specific credentials of a specified division
-     * @access private admin & management role
+     * @req body.{divisionId, credentialId, name , details, username, password}
      */
     updateCredentials: function(req, res) {
-        const divisionId = req.params.divisionId
-        const {credentialId, name , details, username, password} = req.body;
+        const {divisionId, credentialId, name , details, username, password} = req.body;
         
         hardwareReviewModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {

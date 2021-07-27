@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const softwareReviewController = require('../controllers/softwareReviewController')
+const auth = require('../middleware/authMiddleware')
 
 /**
  * @route /software-review
@@ -10,25 +11,25 @@ const softwareReviewController = require('../controllers/softwareReviewControlle
 router.get('/', softwareReviewController.list);
 
 /**
- * @route /software-review/:divisionId
- * @desc list all credential data for specified division
+ * @route /software-review/:divisionName
+ * @desc list all credentials for specified division
  * @access private admin & users with access to division
  */
- router.get('/:divisionId', softwareReviewController.listCredentials);
+ router.get('/:divisionName', auth.softwareReviews, softwareReviewController.listCredentials);
 
 /**
  * @route /software-review/:divisionName
  * @desc update credentials for specified division
- * @access private admin only
+ * @access private admin & management
  */
-router.put('/:divisionId', softwareReviewController.updateCredentials);
+router.put('/:divisionName', auth.adminManagement, softwareReviewController.updateCredentials);
 
 /**
- * @route /software-review/:divisionId
- * @desc create a new credential for specified divsion
+ * @route /software-review/:divisionName
+ * @desc create new credential for specified divsion
  * @access public
  */
-router.post('/:divisionId', softwareReviewController.createCredential);
+router.post('/:divisionName', auth.softwareReviews, softwareReviewController.createCredential);
 
 
 

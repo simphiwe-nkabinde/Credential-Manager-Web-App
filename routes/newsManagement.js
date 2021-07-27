@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const newsManagementController = require('../controllers/newsManagementController')
+const auth = require('../middleware/authMiddleware')
 
 /**
  * @route /news-management
@@ -10,25 +11,25 @@ const newsManagementController = require('../controllers/newsManagementControlle
 router.get('/', newsManagementController.list);
 
 /**
- * @route /news-management/divisionId
+ * @route /news-management/divisionName
  * @desc list all credential data for specified divisionName
- * @access private admin & users with access to division
+ * @access private admin. & users with access to division
  */
- router.get('/:divisionId', newsManagementController.listCredentials);
+ router.get('/:divisionName', auth.newsManagement, newsManagementController.listCredentials);
 
 /**
- * @route /news-management/divisionId
- * @desc update user role (admin, management, user)
- * @access private admin only
+ * @route /news-management/divisionName
+ * @desc update credentials for specified division
+ * @access private admin & management
  */
-router.put('/:divisionId', newsManagementController.updateCredentials);
+router.put('/:divisionName', auth.adminManagement, newsManagementController.updateCredentials);
 
 /**
- * @route /software-review/:divisionId
+ * @route /software-review/:divisionName
  * @desc create a new credential for specified divsion
  * @access public
  */
- router.post('/:divisionId', newsManagementController.createCredential);
+ router.post('/:divisionName', auth.newsManagement, newsManagementController.createCredential);
 
 
 

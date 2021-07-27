@@ -11,7 +11,7 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller newsManagementControlller.list()
      * @desc list all division names
-     * @access public
+     * @req {}
      */
      list: function (req, res) {
         newsManagementModel.find({}, 'divisionName', function (err, divs) {
@@ -28,7 +28,7 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller newsManagementControlller.listCredentials()
      * @desc list all credentials for a division
-     * @access public
+     * @req params.{ divisionName }
      */
     listCredentials: function(req,res) {
         const division = req.params.divisionName
@@ -49,11 +49,10 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller newsManagementControlller.createCredential()
      * @desc create and add new credential to a specified division
-     * @access public
+     * @req body.{ divisionId, name , details, username, password }
      */
     createCredential: function(req, res) {
-        const divisionId = req.params.divisionId
-        const { name , details, username, password} = req.body;
+        const { divisionId, name , details, username, password} = req.body;
         
         newsManagementModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {
@@ -93,11 +92,10 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller newsManagementControlller.updateCredential()
      * @desc update specific credentials of a specified division
-     * @access private admin & management role
+     * @req body.{ divisionId, credentialId, name , details, username, password }
      */
     updateCredentials: function(req, res) {
-        const divisionId = req.params.divisionId
-        const {credentialId, name , details, username, password} = req.body;
+        const {divisionId, credentialId, name , details, username, password} = req.body;
         
         newsManagementModel.findOne({_id:divisionId}, function(err, division) {
             if(err) {
