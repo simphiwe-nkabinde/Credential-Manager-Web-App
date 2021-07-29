@@ -1,0 +1,6 @@
+
+
+#landing {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), #dc3545), url('./laptop.jpg') no-repeat center;
+    background-size: cover;
+  }
