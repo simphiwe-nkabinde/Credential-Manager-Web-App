@@ -3,10 +3,10 @@ const router = express.Router();
 const authController =  require('../controllers/loginController');
 
 /**
- * @route /auth/login
- * @desc register new user
+ * @route /login
+ * @desc verifies user credentials and sends jwt to client
  * @access public
  */
- router.post('/login', authController.loginAuth);
+ router.post('/', authController.loginAuth);
 
  module.exports = router;

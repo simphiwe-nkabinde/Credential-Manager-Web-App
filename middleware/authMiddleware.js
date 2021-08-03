@@ -15,7 +15,10 @@ module.exports = {
     admin: function(req, res, next)  {
         //check for token
         if(!req.headers['authorization']) {
-            return res.status(401).json({msg : 'No token, authorization denied'})
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
         }
 
         const token = req.headers['authorization'].split(' ')[1];
@@ -25,10 +28,16 @@ module.exports = {
             if (decoded.role === 'admin') {
                 next()
             } else {
-                res.status(400).json({msg : 'Access to endpoint is admin only. Authorization denied'})
+                res.status(400).json({
+                    error : 'Access to endpoint is admin only. Authorization denied',
+                    msg: 'Access to this page is restricted. Login as admin to access this page'
+                })
             }
         } catch(err) {
-            res.status(400).json({msg : 'Token is invalid'})
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
         }
     },
 
@@ -40,7 +49,10 @@ module.exports = {
     adminManagement: function(req, res, next)  {
         //check for token
         if(!req.headers['authorization']) {
-            return res.status(401).json({msg : 'No token, authorization denied'})
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
         }
 
         const token = req.headers['authorization'].split(' ')[1];
@@ -50,10 +62,38 @@ module.exports = {
             if (decoded.role === 'admin' || decoded.role === 'management') {
                 next()
             } else {
-                res.status(400).json({msg : 'Access to endpoint for admin & management only. Authorization denied'})
+                res.status(400).json({
+                    error : 'Access to endpoint for admin & management only. Authorization denied',
+                    msg: 'Access to this page is restricted. Login as admin or management to access this page'
+                })
             }
         } catch(err) {
-            res.status(400).json({msg : 'Token is invalid'})
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
+        }
+    },
+
+    user: function(req, res, next) {
+        //check for token
+        if(!req.headers['authorization']) {
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
+        }
+
+        const token = req.headers['authorization'].split(' ')[1];
+        //verify token
+        try {
+            const decoded = jwt.verify(token, jwsSecret)
+            next()
+        } catch(err) {
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
         }
     },
 
@@ -66,7 +106,10 @@ module.exports = {
         const divName = req.params.divisionName
         //check for token
         if(!req.headers['authorization']) {
-            return res.status(401).json({msg : 'No token, authorization denied'})
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
         }
 
         const token = req.headers['authorization'].split(' ')[1];
@@ -78,10 +121,16 @@ module.exports = {
             } else if (decoded.ou['newsManagement'].includes(divName)) {
                 next()
             } else {
-                res.status(400).json({msg : 'You do not have access to the '+ divName +' division of the News Management Unit. Authorization denied'})
+                res.status(400).json({
+                    error: 'Authorization denied',
+                    msg : 'You do not have access to this '+ divName +' division page. Access is limited to assigned users'
+                })
             }
         } catch(err) {
-            res.status(400).json({msg : 'Token is invalid'})
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
         }
     },
 
@@ -94,7 +143,10 @@ module.exports = {
         const divName = req.params.divisionName
         //check for token
         if(!req.headers['authorization']) {
-            return res.status(401).json({msg : 'No token, authorization denied'})
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
         }
 
         const token = req.headers['authorization'].split(' ')[1];
@@ -106,10 +158,16 @@ module.exports = {
             } else if (decoded.ou['softwareReviews'].includes(divName)) {
                 next()
             } else {
-                res.status(400).json({msg : 'You do not have access to the '+ divName +' division of the Software Reviews Unit. Authorization denied'})
+                res.status(400).json({
+                    error: 'Authorization denied',
+                    msg : 'You do not have access to this '+ divName +' division page. Access is limited to assigned users'
+                })
             }
         } catch(err) {
-            res.status(400).json({msg : 'Token is invalid'})
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
         }
     },
 
@@ -122,7 +180,10 @@ module.exports = {
         const divName = req.params.divisionName
         //check for token
         if(!req.headers['authorization']) {
-            return res.status(401).json({msg : 'No token, authorization denied'})
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
         }
 
         const token = req.headers['authorization'].split(' ')[1];
@@ -134,10 +195,16 @@ module.exports = {
             } else if (decoded.ou['hardwareReviews'].includes(divName)) {
                 next()
             } else {
-                res.status(400).json({msg : 'You do not have access to the '+ divName +' division of the hardware Reviews Unit. Authorization denied'})
+                res.status(400).json({
+                    error: 'Authorization denied',
+                    msg : 'You do not have access to this '+ divName +' division page. Access is limited to assigned users'
+                })
             }
         } catch(err) {
-            res.status(400).json({msg : 'Token is invalid'})
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
         }
     },
 
@@ -150,7 +217,10 @@ module.exports = {
         const divName = req.params.divisionName
         //check for token
         if(!req.headers['authorization']) {
-            return res.status(401).json({msg : 'No token, authorization denied'})
+            return res.status(401).json({
+                error : 'No token, authorization denied',
+                msg : 'You are not logged in correctly. Try loggin in again'
+            })
         }
 
         const token = req.headers['authorization'].split(' ')[1];
@@ -162,10 +232,16 @@ module.exports = {
             } else if (decoded.ou['opinionPublishing'].includes(divName)) {
                 next()
             } else {
-                res.status(400).json({msg : 'You do not have access to the '+ divName +' division of the opinion Publishing Unit. Authorization denied'})
+                res.status(400).json({
+                    error: 'Authorization denied',
+                    msg : 'You do not have access to this '+ divName +' division page. Access is limited to assigned users'
+                })
             }
         } catch(err) {
-            res.status(400).json({msg : 'Token is invalid'})
+            res.status(400).json({
+                error : err,
+                msg: 'Token Invalid. Try loggin in again'
+            })
         }
     }
 

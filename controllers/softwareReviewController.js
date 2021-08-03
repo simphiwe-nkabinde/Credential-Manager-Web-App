@@ -49,12 +49,12 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller softwareReviewControlller.createCredential()
      * @desc create and add new credential to a specified division
-     * @req body.{ divisionId, name , details, username, password }
+     * @req body.{ division, name , details, username, password }
      */
     createCredential: function(req, res) {
-        const { divisionId, name , details, username, password} = req.body;
+        const { division, name , details, username, password} = req.body;
         
-        softwareReviewModel.findOne({_id:divisionId}, function(err, division) {
+        softwareReviewModel.findOne({divisionName:division}, function(err, division) {
             if(err) {
                 return res.status(500).json({
                     msg: 'error updating division',
@@ -62,9 +62,10 @@ const {v4: uuid} = require('uuid')
                 });
             }
             if(!division) {
-                return res.status(404).json({msg: 'division not found'})
+                return res.status(404).json({
+                    error: "error",
+                    msg: 'division not found'})
             }
-            
             division.credentials.push(
                 {
                     id:uuid(),
@@ -74,15 +75,21 @@ const {v4: uuid} = require('uuid')
                     password:password
                 }
             )
-
+            division.markModified('credentials')    //doc.markModified() helpful when using Mixed types.
             division.save(function(err, division){
                 if(err) {
-                    return res.status(500).json({msg: 'Error getting division'})
+                    return res.status(500).json({
+                        error: err,
+                        msg: 'Error getting division'
+                    })
                 }
                 if(!division) {
-                    return rest.staus(404).json({msg:'division not found'});
+                    return rest.staus(404).json({
+                        error: "error",
+                        msg:'division not found'
+                    });
                 }
-                return res.json({msg: 'added ' + name + ' credentials to ' + division.divisionName + ' division'})
+                return res.json({msg: 'added ' + name + ' credentials to this division'})
             })
 
         })
@@ -92,12 +99,12 @@ const {v4: uuid} = require('uuid')
     /**
      * @controller softwareReviewControlller.updateCredential()
      * @desc update specific credentials of a specified division
-     * @req body.{ divisionId, name , details, username, password }
+     * @req body.{division, credentialId, name, username, password}
      */
     updateCredentials: function(req, res) {
-        const {divisionId, credentialId, name , details, username, password} = req.body;
+        const {division, credentialId, name, username, password} = req.body;
         
-        softwareReviewModel.findOne({_id:divisionId}, function(err, division) {
+        softwareReviewModel.findOne({divisionName:division}, function(err, division) {
             if(err) {
                 return res.status(500).json({
                     msg: 'error updating division',
@@ -105,23 +112,31 @@ const {v4: uuid} = require('uuid')
                 });
             }
             if(!division) {
-                return res.status(404).json({msg: 'division not found'})
+                return res.status(404).json({
+                    error: "error",
+                    msg: 'division not found'
+                })
             }
 
             const index = division.credentials.findIndex((obj) => obj.id === credentialId);
-            division.credentials[index].name = name ? name :  division.credentials[index].name;
-            division.credentials[index].details = details ? details :  division.credentials[index].details;
             division.credentials[index].username = username ? username : division.credentials[index].username;
             division.credentials[index].password = password ? password : division.credentials[index].password;
 
+            division.markModified('credentials')
             division.save(function(err, division){
                 if(err) {
-                    return res.status(500).json({msg: 'Error getting division'})
+                    return res.status(500).json({
+                        error: err,
+                        msg: 'Error getting division'
+                    })
                 }
                 if(!division) {
-                    return rest.staus(404).json({msg:'division not found'});
+                    return res.staus(404).json({
+                        error: "error",
+                        msg:'division not found'
+                    });
                 }
-                return res.json({msg: 'Update ' + name + ' credentials of division'})
+                return res.json({msg:  name + ' credentials Updated'})
             })
 
         })

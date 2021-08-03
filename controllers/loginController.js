@@ -17,13 +17,13 @@ const jwtSecret = 'jwt-cred-man-app';
         const {email, password} = req.body;
         //simple validation
         if(!email || !password) {
-            return res.status(400).json({msg: 'Please enter all fields'})
+            return res.status(400).json({error: 'Please enter all fields'})
         }
         //check for existing user
         userModel.findOne({email: email}, function(err, user) {
-            if(!user) return res.status(400).json({msg:'User does not exists'})
+            if(!user) return res.status(400).json({error:'User does not exists'})
             //validate password
-            if(user.password !== password) return res.status(400).json({msg: 'Invalid Credentials'});
+            if(user.password !== password) return res.status(400).json({error: 'email and password do not match'});
 
             //create & send JWT
             const payLoad = {
@@ -36,7 +36,8 @@ const jwtSecret = 'jwt-cred-man-app';
                 token: token,
                 user: user.name,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                uo: user.organisationalUnit
             })
         })
     }

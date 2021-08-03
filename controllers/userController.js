@@ -13,7 +13,7 @@ module.exports = {
      * @req admin only
      */
     list: function (req, res) {
-        userModel.find(function (err, users) {
+        userModel.find({}, '-password', function (err, users) {
             if (err) {
                 return res.status(500).json({
                     msg: 'Error when getting users',

@@ -29,7 +29,7 @@ router.put('/ou/:id', auth.admin, userController.updateOU);
  * @desc register new user
  * @access public
  */
-  router.post('/create', userController.create);
+  router.post('/register', userController.create);
 
 
 

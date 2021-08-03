@@ -31,22 +31,23 @@ class User extends React.Component {
         return (
             <div className="my-4">
                 <div className="d-flex justify-content-between btn btn-light border" onClick={this.onClickUserTab}>
-                    Pieter Jackson
+                    {this.props.user.name}
                     <span>
-                        <span className="text-primary">Admin</span>
+                        <span className="text-primary">{this.props.user.role}</span>
                         <i className="bi bi-chevron-down ms-3"></i>
                     </span>
                 </div>
 
                 <div className="d-none p-2 mt-1 border rounded row mx-0">
-                    <p className="col-12 col-sm-6">Email: jacob@email.com</p>
+                    <p className="col-12 col-sm-6">Email: {this.props.user.email}</p>
                     <div className="mb-3 row col-12 col-sm-6">
                         <label className="col-sm-3 col-form-label col-form-label-sm">Role:</label>
                         <div className="col-sm-9 d-flex">
-                            <select className="form-select form-select-sm" disabled>
-                                <option value="admin">admin</option>
-                                <option value="management">management</option>
-                                <option value="user">user</option>
+                            <select className="form-select form-select-sm" defaultValue={this.props.user.role} disabled>
+                                <option value={this.props.user.role}>{this.props.user.role}</option>
+                                {this.props.user.role !== 'admin' ? <option value="admin">admin</option> : ''}
+                                {this.props.user.role !== 'management' ? <option value="management">management</option> : ''}
+                                {this.props.user.role !== 'user' ? <option value="user">user</option> : ''}
                             </select>   
                             <div className="d-flex">
                                 <button className="d-none btn btn-sm btn-success mx-1">save</button>

@@ -8,24 +8,66 @@ class MainPage extends React.Component {
         super();
 
         this.state = {
-            mountUsers: true,
-            mountDivision: true,
-            mountOrganisation: true,
+            usersMounted: false,
+            divisionMounted: false,
+            organisationMounted: true,
+            division: {unitName: '', divisionName: ''}
         }
-        this.onClickUsers = this.onClickUsers.bind(this)
+        this.onClickUsers = this.onClickUsers.bind(this);
+        this.mountDivision = this.mountDivision.bind(this);
+        this.mountOrganisation = this.mountOrganisation.bind(this);
+        this.mountUsers = this.mountUsers.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({
+            organisationMounted: true,
+            usersMounted: false,
+            divisionMounted: false
+        })
     }
 
     onClickUsers() {
-        this.setState({mountUsers: true})
+        this.setState({usersMounted: true})
     }
 
+    mountUsers() {
+        this.setState({
+            usersMounted: true,
+            divisionMounted: false,
+            organisationMounted: false
+        })
+    }
+    mountDivision(unit, divisionName) {
+        this.setState({
+            usersMounted: false,
+            divisionMounted: true,
+            organisationMounted: false,
+            division: { unitName: unit, divisionName: divisionName }
+        })
+    }
+    mountOrganisation() {
+        this.setState({
+            usersMounted: false,
+            divisionMounted: false,
+            organisationMounted: true
+        })
+    }
 
     render() {
         return (
             <div className="container">
-                {!this.state.mountOrganisation ? '' : <Organisation/>}
-                {!this.state.mountDivision ? '' : <Division/>}
-                {!this.state.mountUsers ? '' : <Users/>} 
+                {!this.state.organisationMounted ? '' : 
+                    <Organisation mountDivision={this.mountDivision}  mountUsers={this.mountUsers}/>
+                }
+                {!this.state.divisionMounted ? '' : 
+                    <Division mountOrg={this.mountOrganisation} 
+                        unit={this.state.division.unitName} 
+                        division={this.state.division.divisionName}/>
+                }
+                {!this.state.usersMounted ? '' : 
+                    <Users  mountOrg={this.mountOrganisation}/>
+                } 
             </div>
         )
     }

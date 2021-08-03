@@ -25,8 +25,8 @@ const userSchema = new Schema({
     },
     organisationalUnit : {
         newsManagement: [],
-        softwareReviews: [],
-        hardwareReviews: [],
+        softwareReview: [],
+        hardwareReview: [],
         opinionPublishing: []
     }
 });

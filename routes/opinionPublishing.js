@@ -8,7 +8,7 @@ const auth = require('../middleware/authMiddleware')
  * @desc list all division names for the news management unit
  * @access public
  */
-router.get('/', opinionPublishingController.list);
+router.get('/', auth.user, opinionPublishingController.list);
 
 /**
  * @route /opinion-publishing/:divisionName
