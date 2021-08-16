@@ -20,7 +20,7 @@ class Users extends React.Component {
         .then(data => {
             if(data.error) {
                 console.log(data.error)
-                showAlert('secondary', data.msg)
+                showAlert('danger', data.msg)
             } else {
                 this.setState({users: data})
             }
@@ -31,7 +31,7 @@ class Users extends React.Component {
     render() {
         var list = '';
         if(!this.state.users.length) {
-            list = <p className="text-muted">no users found</p>
+            list = <p className="text-muted">fetching users...</p>
         } else {
             list = this.state.users.map((item, i) => 
                 <User key={item._id} user={item}/>

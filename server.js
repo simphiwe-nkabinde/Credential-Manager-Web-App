@@ -1,6 +1,8 @@
 const createError = require('http-errors');
 const express = require('express');
 var mongoose = require('mongoose');
+const dotenv = require('dotenv')
+dotenv.config()
 //routes
 const userRouter = require('./routes/users');
 const newsManagementRouter = require('./routes/newsManagement');
@@ -13,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 
 
 //MongoDB connection
-const uri = 'mongodb+srv://simphiwe:simphiwe123@cluster0.tguue.mongodb.net/credential-manager?retryWrites=true&w=majority';
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.tguue.mongodb.net/credential-manager?retryWrites=true&w=majority`;
 mongoose.Promise = global.Promise;
 mongoose.connect(uri, {
   useUnifiedTopology: true,
@@ -36,12 +38,6 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
-
-//routes
-// app.get('/', (req, res) => {
-//     res.send('you reached the server')
-// })
 app.use('/users', userRouter)
 app.use('/news-management', newsManagementRouter)
 app.use('/software-review', softwareReviewRouter)

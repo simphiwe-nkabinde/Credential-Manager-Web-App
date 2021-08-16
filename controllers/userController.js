@@ -10,7 +10,7 @@ module.exports = {
     /**
      * @controller userController.list()
      * @desc list all users
-     * @req admin only
+     * @req {}
      */
     list: function (req, res) {
         userModel.find({}, '-password', function (err, users) {
