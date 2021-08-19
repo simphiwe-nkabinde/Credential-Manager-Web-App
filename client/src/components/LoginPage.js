@@ -56,7 +56,11 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className="container my-5">
+            <div className="container my-2">
+                <p className="text-center">
+                    Login to access your organisation's credentials. You will only have
+                    access to credentials from divisions that your administrator has assigned you to.
+                </p>
                 <p className="lead text-center">
                     Enter you login details below
                 </p>

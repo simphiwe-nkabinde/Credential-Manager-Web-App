@@ -64,23 +64,23 @@ class User extends React.Component {
                         <div>
                             <nav>
                                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button className="nav-link active" id={"nav-news-tab"+'-'+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-news"+'-'+ this.props.user._id} type="button" role="tab" aria-controls={"nav-news"+'-'+ this.props.user._id} aria-selected="true">News Management</button>
-                                    <button className="nav-link" id={"nav-software-tab"+'-'+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-software"+'-'+ this.props.user._id} type="button" role="tab" aria-controls={"nav-software"+'-'+ this.props.user._id} aria-selected="true">Software Reviews</button>
-                                    <button className="nav-link" id={"nav-hardware-tab"+'-'+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-hardware"+'-'+ this.props.user._id} type="button" role="tab" aria-controls={"nav-hardware"+'-'+ this.props.user._id} aria-selected="true">Hardware Reviews</button>
-                                    <button className="nav-link" id={"nav-opinion-tab"+'-'+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-opinion"+'-'+ this.props.user._id} type="button" role="tab" aria-controls={"nav-opinion"+'-'+ this.props.user._id} aria-selected="true">Opinion Publishing</button>
+                                    <button className="nav-link active" id={"nav-news-tab-"+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-news-"+ this.props.user._id} type="button" role="tab" aria-controls={"nav-news-"+ this.props.user._id} aria-selected="true">News Management</button>
+                                    <button className="nav-link" id={"nav-software-tab-"+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-software-"+ this.props.user._id} type="button" role="tab" aria-controls={"nav-software-"+ this.props.user._id} aria-selected="true">Software Reviews</button>
+                                    <button className="nav-link" id={"nav-hardware-tab-"+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-hardware-"+ this.props.user._id} type="button" role="tab" aria-controls={"nav-hardware-"+ this.props.user._id} aria-selected="true">Hardware Reviews</button>
+                                    <button className="nav-link" id={"nav-opinion-tab-"+ this.props.user._id} data-bs-toggle="tab" data-bs-target={"#nav-opinion-"+ this.props.user._id} type="button" role="tab" aria-controls={"nav-opinion-"+ this.props.user._id} aria-selected="true">Opinion Publishing</button>
                                 </div>
                             </nav>
                             <div className="tab-content" id="nav-tabContent">
-                                <div className="tab-pane fade show active" id={"nav-news"+'-'+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-news-tab"+'-'+ this.props.user._id}>
+                                <div className="tab-pane fade show active" id={"nav-news-"+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-news-tab-"+ this.props.user._id}>
                                     <UserDivisions unit="news-management" userId={this.props.user._id} divisions={this.props.user.organisationalUnit['newsManagement']}/>
                                 </div>
-                                <div className="tab-pane fade show" id={"nav-software"+'-'+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-software-tab"+'-'+ this.props.user._id}>
+                                <div className="tab-pane fade show" id={"nav-software-"+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-software-tab-"+ this.props.user._id}>
                                     <UserDivisions unit="software-review" userId={this.props.user._id} divisions={this.props.user.organisationalUnit['softwareReview']}/>
                                 </div>
-                                <div className="tab-pane fade show" id={"nav-hardware"+'-'+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-hardware-tab"+'-'+ this.props.user._id}>
+                                <div className="tab-pane fade show" id={"nav-hardware-"+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-hardware-tab-"+ this.props.user._id}>
                                     <UserDivisions unit="hardware-review" userId={this.props.user._id} divisions={this.props.user.organisationalUnit['hardwareReview']}/>
                                 </div>
-                                <div className="tab-pane fade show" id={"nav-opinion"+'-'+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-opinion-tab"+'-'+ this.props.user._id}>
+                                <div className="tab-pane fade show" id={"nav-opinion-"+ this.props.user._id} role="tabpanel" aria-labelledby={"nav-opinion-tab-"+ this.props.user._id}>
                                     <UserDivisions unit="opinion-publishing" userId={this.props.user._id} divisions={this.props.user.organisationalUnit['opinionPublishing']}/>
                                 </div>
                             </div>                            

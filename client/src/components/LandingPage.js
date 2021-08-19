@@ -2,10 +2,10 @@
 function LandingPage() {
 
     return (
-        <div className="my-5 pt-5">
+        <div className=" pt-5">
             
-            <div id="landing" className="p-5">
-               <p className="lead text-center text-light">
+            <div id="landing" className="p-3">
+               <p className="lead fs-6 text-center text-light">
                 <strong>Welcome</strong> to the CREDMAN app. To get started accessing your organisation's credential repository,
                 register as a new user. If you already have an account, you can simply login.
                 </p> 
@@ -13,7 +13,7 @@ function LandingPage() {
                     <a href="/register" className="btn btn-warning m-2 shadow">Register</a>
                     <a href="/login" className="btn btn-success m-2 shadow">Login</a>
                 </div>
-                <p className="lead fs-5 text-center text-light">
+                <p className="lead fs-6 text-center text-light">
                     The app implements secure user Authentication to ensure that each user is limited to accessing data 
                     that they are authorized to access. Admin users will have access to changing user permissions for any user.
                 </p>
