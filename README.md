@@ -3,6 +3,7 @@
 A MERN stack application for managing an organizations repository of login credentials to different services. 
 Each organizational unit has multiple divisions. Each division will have loggin credentials that users who are assigned to the at 
 divisino will have access to. 
+
 ### languages/Technologies used
 - MongoDb
 - Express
@@ -41,4 +42,11 @@ cd client
 npm start
 ```
 Once the command is done processing, type in localhost:300 in your browser to view the web app
+
+## User Interface
+![picture](landing.png)
+![picture](login.png)
+![picture](main.png)
+![picture](users.png)
+![picture](credentials.png)
 
